@@ -14,7 +14,7 @@ function App() {
     <>
      <h1>Todo List</h1>
      <ul>
-        {}
+        {/* Some info might be here*/}
         {todoList.map((todo) => (
           <li key={todo.id}>{todo.title}</li>
         ))}
