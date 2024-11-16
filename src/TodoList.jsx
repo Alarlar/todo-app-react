@@ -9,8 +9,8 @@ const todoList = [
 function TodoList() {
     return (
         <ul>
-            {todoList.map((item, index) => (
-                <li key={index}>{item}</li>
+            {todoList.map((todo) => (
+                <li key={todo.id}>{todo.title}</li>
             ))}
         </ul>
     );
