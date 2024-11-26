@@ -3,7 +3,7 @@ import React from 'react';
 function TodoListItem(props) {
     return (
         <li>
-            {props.todo.name} {/* access */}
+            {props.todo.title} {/* access */}
         </li>
     );
 }
