@@ -17,6 +17,7 @@ function AddTodoForm({ onAddTodo }) {
         <form onSubmit={handleAddTodo}>
             <label htmlFor="todoTitle">Title</label>
             <input
+                name="todoTitle"
                 type="text"
                 id="todoTitle"
                 value={todoTitle}
