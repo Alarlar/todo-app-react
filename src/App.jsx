@@ -20,18 +20,12 @@ function App() {
     setTodoList([...todoList, newTodo]);
   };
 
-  const removeTodo = (index) => {
-    const newTodoList = [...todoList];
-    newTodoList.splice(index, 1);
-    setTodoList(newTodoList);
-  };
-
   return (
-    <div>
+    <>
       <h1>Todo List</h1>
       <AddTodoForm addTodo={addTodo} />
-      <TodoList todos={todoList} onRemove={removeTodo} />
-    </div>
+      <TodoList todos={todoList} />
+    </>
   );
 }
 
