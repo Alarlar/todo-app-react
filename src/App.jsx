@@ -17,18 +17,20 @@ const useSemiPersistentState = () => {
 function App() {
     const [todoList, setTodoList] = useSemiPersistentState(); // без аргумента
 
-    const addTodo = (newTodo) => {
-        setTodoList((prevTodoList) => [...prevTodoList, newTodo]);
+    const addTodo = (title) => {
+      setTodoList([...todoList, { id: Date.now(), title }]);
     };
 
-
+    const removeTodo = (id) => {
+      setTodoList(todoList.filter(todo => todo.id !== id));
+    };
 
     return (
-        <div>
+        <>
             <h1>My Todo List</h1>
             <AddTodoForm onAddTodo={addTodo} />
-            <TodoList todoList={todoList} />
-        </div>
+            <TodoList todoList={todoList} onRemoveTodo={removeTodo}/>
+        </> // Фрагмент
     );
 }
 

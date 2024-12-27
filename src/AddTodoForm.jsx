@@ -1,32 +1,37 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
 import { useState } from 'react';
 
+// eslint-disable-next-line no-unused-vars
+import InputWithLabel from './InputWithlabel';
+
 // eslint-disable-next-line react/prop-types
-function AddTodoForm({ onAddTodo }) {
+
+const AddTodoForm = () => {
+    // eslint-disable-next-line no-unused-vars
     const [todoTitle, setTodoTitle] = useState('');
 
+    // eslint-disable-next-line no-unused-vars
     const handleTitleChange = (event) => {
         setTodoTitle(event.target.value);
     };
 
-    const handleAddTodo = (event) => {
+    const handleSubmit = (event) => {
         event.preventDefault();
-        onAddTodo({ title: todoTitle, id: Date.now() });
-        setTodoTitle('');
     };
 
     return (
-        <form onSubmit={handleAddTodo}>
-            <label htmlFor="todoTitle">Title</label>
-            <input
-                name="todoTitle"
-                type="text"
-                id="todoTitle"
-                value={todoTitle}
-                onChange={handleTitleChange}
-            />
-            <button type="submit">Add</button>
-        </form>
+        <form onSubmit={handleSubmit}>
+            <InputWithLabel 
+            id="todo-title" 
+            value={todoTitle} 
+            onChange={handleTitleChange}
+            >
+        Title
+      </InputWithLabel>
+      <button type="submit">Add Todo</button>
+    </form>
     );
-}
+};
 
 export default AddTodoForm;

@@ -1,14 +1,21 @@
-/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 
 
-const TodoList = ({ todoList }) => {
-    return (
-        <ul>
-            {todoList.map((todo) => (
-                <li key={todo.id}>{todo.title}</li>
-            ))}
-        </ul>
-    );
+import React from 'react';
+import TodoListItem from './TodoListItem';
+
+const TodoList = ({ todoList, onRemoveTodo }) => {
+  return (
+    <ul>
+      {todoList.map(todo => (
+        <TodoListItem 
+          key={todo.id} 
+          todo={todo} 
+          onRemoveTodo={onRemoveTodo} 
+        />
+      ))}
+    </ul>
+  );
 };
 
 export default TodoList;
