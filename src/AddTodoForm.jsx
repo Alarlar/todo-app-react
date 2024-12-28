@@ -7,7 +7,7 @@ import InputWithLabel from './InputWithlabel';
 
 // eslint-disable-next-line react/prop-types
 
-const AddTodoForm = () => {
+const AddTodoForm = ({ onAddTodo }) => {
     // eslint-disable-next-line no-unused-vars
     const [todoTitle, setTodoTitle] = useState('');
 
@@ -18,6 +18,8 @@ const AddTodoForm = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        onAddTodo({ title: todoTitle, id: Date.now() });
+        setTodoTitle('');
     };
 
     return (

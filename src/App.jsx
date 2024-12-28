@@ -1,21 +1,11 @@
 import './App.css';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import TodoList from './TodoList';
 import AddTodoForm from './AddTodoForm';
 
-const useSemiPersistentState = () => {
 
-  const [todoList, setTodoList] = useState( JSON.parse(localStorage.getItem('list')) ||  []);
-  
-  useEffect( () => {
-    
-    localStorage.setItem('list', JSON.stringify(todoList)) 
-  }, [todoList]) // пустой зависимый массив
-  return [todoList, setTodoList];
-} 
-
-function App() {
-    const [todoList, setTodoList] = useSemiPersistentState(); // без аргумента
+const App = () => {
+  const [todoList, setTodoList] = useState([]);
 
     const addTodo = (title) => {
       setTodoList([...todoList, { id: Date.now(), title }]);
@@ -32,6 +22,6 @@ function App() {
             <TodoList todoList={todoList} onRemoveTodo={removeTodo}/>
         </> // Фрагмент
     );
-}
+};
 
 export default App;
