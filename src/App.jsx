@@ -7,9 +7,9 @@ import AddTodoForm from './AddTodoForm';
 const App = () => {
   const [todoList, setTodoList] = useState([]);
 
-    const addTodo = (title) => {
-      setTodoList([...todoList, { id: Date.now(), title }]);
-    };
+  const addTodo = (newTodo) => {
+    setTodoList((prevTodoList) => [...prevTodoList, newTodo]);
+   };
 
     const removeTodo = (id) => {
       setTodoList(todoList.filter(todo => todo.id !== id));
