@@ -1,35 +1,27 @@
 import './App.css';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import TodoList from './TodoList';
 import AddTodoForm from './AddTodoForm';
 
-const useSemiPersistentState = () => {
 
-  const [todoList, setTodoList] = useState( JSON.parse(localStorage.getItem('list')) ||  []);
-  
-  useEffect( () => {
-    
-    localStorage.setItem('list', JSON.stringify(todoList)) 
-  }, [todoList]) // пустой зависимый массив
-  return [todoList, setTodoList];
-} 
+const App = () => {
+  const [todoList, setTodoList] = useState([]);
 
-function App() {
-    const [todoList, setTodoList] = useSemiPersistentState(); // без аргумента
+  const addTodo = (newTodo) => {
+    setTodoList((prevTodoList) => [...prevTodoList, newTodo]);
+   };
 
-    const addTodo = (newTodo) => {
-        setTodoList((prevTodoList) => [...prevTodoList, newTodo]);
+    const removeTodo = (id) => {
+      setTodoList(todoList.filter(todo => todo.id !== id));
     };
 
-
-
     return (
-        <div>
+        <>
             <h1>My Todo List</h1>
             <AddTodoForm onAddTodo={addTodo} />
-            <TodoList todoList={todoList} />
-        </div>
+            <TodoList todoList={todoList} onRemoveTodo={removeTodo}/>
+        </> // Фрагмент
     );
-}
+};
 
 export default App;
