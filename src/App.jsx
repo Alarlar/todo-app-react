@@ -1,16 +1,15 @@
-/* eslint-disable no-undef */
+/* eslint-disable react-hooks/exhaustive-deps */
 import './App.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import TodoList from './TodoList';
 import AddTodoForm from './AddTodoForm';
 
-
 const App = () => {
-
-  const [todoList, setTodoList] = useState([]);
-  const [loading, setLoading] = useState(true);
-
   
+  const [todoList, setTodoList] = useState([]);
+  const [isLoading, setIsLoading] = useState(true); 
+
+
   useEffect(() => {
     const fetchData = new Promise((resolve) => {
       setTimeout(() => {
@@ -19,35 +18,36 @@ const App = () => {
             todoList: JSON.parse(localStorage.getItem('todoList')) || [],
           },
         });
-      }, 2000);
+      }, 2000); 
     });
 
     fetchData.then((result) => {
       setTodoList(result.data.todoList); 
-      setLoading(false); 
+      setIsLoading(false); 
     });
   }, []);
 
   useEffect(() => {
-    if (!loading) {
+    if (!isLoading) {
       localStorage.setItem('todoList', JSON.stringify(todoList));
     }
-  }, [todoList, loading]);
+  }, [todoList]);
 
 
-  function addTodo(newTodo) {
-      setTodoList((prevTodoList) => [...prevTodoList, newTodo]);
-    }
+  const addTodo = (newTodo) => {
+    setTodoList((prevTodoList) => [...prevTodoList, newTodo]);
+  };
 
+  
   const removeTodo = (id) => {
-    setTodoList(todoList.filter(todo => todo.id !== id));
+    setTodoList(todoList.filter((todo) => todo.id !== id));
   };
 
   return (
     <>
       <h1>My Todo List</h1>
-      {loading ? (
-        <p>Loading...</p>
+      {isLoading ? (
+        <p>Loading...</p> 
       ) : (
         <>
           <AddTodoForm onAddTodo={addTodo} />
