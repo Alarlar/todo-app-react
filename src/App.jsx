@@ -45,16 +45,16 @@ const App = () => {
 
   return (
     <>
-      <h1>My Todo List</h1>
-      {isLoading ? (
-        <p>Loading...</p> 
-      ) : (
-        <>
-          <AddTodoForm onAddTodo={addTodo} />
-          <TodoList todoList={todoList} onRemoveTodo={removeTodo} />
-        </>
-      )}
-    </>
+    <h1>My Todo List</h1>
+    <AddTodoForm onAddTodo={addTodo} />
+    {isLoading ? (
+      <p>Loading...</p> 
+    ) : (
+      <>
+        <TodoList todoList={todoList} onRemoveTodo={removeTodo} />
+      </>
+    )}
+  </>
   );
 };
 
