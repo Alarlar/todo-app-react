@@ -27,37 +27,19 @@ const App = () => {
     
     const todos = data.records.map((record) => ({
       title: record.fields.title,
-      id: RTCEncodedVideoFrame.id,
+      id: record.id,
     }));
     
     console.log(todos);
 
     setTodoList(todos);
-
     setIsLoading(false);
   } catch (error) {
     console.error('Fetch error: ${error.message}');
+    setIsLoading(false);
   }
 };
   
-
-  useEffect(() => {
-    const fetchData = new Promise((resolve) => {
-      setTimeout(() => {
-        resolve({
-          data: {
-            todoList: JSON.parse(localStorage.getItem('todoList')) || [],
-          },
-        });
-      }, 2000); 
-    });
-
-    fetchData.then((result) => {
-      setTodoList(result.data.todoList); 
-      setIsLoading(false); 
-    });
-  }, []);
-
   useEffect(() => {
     if (!isLoading) {
       localStorage.setItem('todoList', JSON.stringify(todoList));
@@ -69,7 +51,6 @@ const App = () => {
     setTodoList((prevTodoList) => [...prevTodoList, newTodo]);
   };
 
-  
   const removeTodo = (id) => {
     setTodoList(todoList.filter((todo) => todo.id !== id));
   };
