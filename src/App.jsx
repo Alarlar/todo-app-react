@@ -12,7 +12,7 @@ const App = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch('https://api.airtable.com/v0/${import.meta.env.VITE_AIRTABLE_BASE_ID}/${import.meta.env.VITE_TABLE_NAME}', {
+      const response = await fetch(`https://api.airtable.com/v0/${import.meta.env.VITE_AIRTABLE_BASE_ID}/${import.meta.env.VITE_TABLE_NAME}`, {
       method: 'GET',
       headers: {
         Authorization:`Bearer ${import.meta.env.VITE_AIRTABLE_API_TOKEN}`, 
@@ -41,11 +41,14 @@ const App = () => {
 };
   
   useEffect(() => {
+    fetchData(); 
+  }, []);
+
+  useEffect(() => {
     if (!isLoading) {
       localStorage.setItem('todoList', JSON.stringify(todoList));
     }
   }, [todoList]);
-
 
   const addTodo = (newTodo) => {
     setTodoList((prevTodoList) => [...prevTodoList, newTodo]);
