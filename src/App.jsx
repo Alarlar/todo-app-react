@@ -1,8 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import './App.css';
 import { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import TodoList from './TodoList';
 import AddTodoForm from './AddTodoForm';
+
 
 const App = () => {
   
@@ -38,23 +40,40 @@ const App = () => {
     setTodoList((prevTodoList) => [...prevTodoList, newTodo]);
   };
 
-  
   const removeTodo = (id) => {
     setTodoList(todoList.filter((todo) => todo.id !== id));
   };
 
   return (
-    <>
-    <h1>My Todo List</h1>
-    <AddTodoForm onAddTodo={addTodo} />
-    {isLoading ? (
-      <p>Loading...</p> 
-    ) : (
-      <>
-        <TodoList todoList={todoList} onRemoveTodo={removeTodo} />
-      </>
-    )}
-  </>
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path='/'
+          element={
+            <>
+              <h1>My Todo List</h1>
+              <AddTodoForm onAddTodo={addTodo} />
+              {isLoading ? (
+                <p>Loading...</p> 
+              ) : (
+                <TodoList todoList={todoList} onRemoveTodo={removeTodo} />
+              )}
+            </>
+          }
+        />
+
+        {/* New Route будет тут*/}
+        
+        <Route
+          path='/new'
+          element={
+            <>
+              <h1>New Todo List</h1>
+            </>
+          }
+        />
+      </Routes> 
+    </BrowserRouter>
   );
 };
 
