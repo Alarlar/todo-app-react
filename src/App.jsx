@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import './App.css';
 import { useState, useEffect } from 'react';
@@ -9,8 +10,7 @@ import AddTodoForm from './AddTodoForm';
 const App = () => {
   
   const [todoList, setTodoList] = useState([]);
-  const [isLoading, setIsLoading] = useState(true); 
-
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchData = async () => {
     try {
@@ -52,7 +52,6 @@ const App = () => {
       localStorage.setItem('todoList', JSON.stringify(todoList));
     }
   }, [todoList]);
-
 
   const addTodo = (newTodo) => {
     setTodoList((prevTodoList) => [...prevTodoList, newTodo]);
