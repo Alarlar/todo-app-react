@@ -12,21 +12,39 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(true); 
 
 
-  useEffect(() => {
-    const fetchData = new Promise((resolve) => {
-      setTimeout(() => {
-        resolve({
-          data: {
-            todoList: JSON.parse(localStorage.getItem('todoList')) || [],
-          },
-        });
-      }, 2000); 
+  const fetchData = async () => {
+    try {
+      const response = await fetch(`https://api.airtable.com/v0/${import.meta.env.VITE_AIRTABLE_BASE_ID}/${import.meta.env.VITE_TABLE_NAME}`, {
+      method: 'GET',
+      headers: {
+        Authorization:`Bearer ${import.meta.env.VITE_AIRTABLE_API_TOKEN}`, 
+      },
     });
 
-    fetchData.then((result) => {
-      setTodoList(result.data.todoList); 
-      setIsLoading(false); 
-    });
+    if (!response.ok) {
+      throw new Error('Error: ${response.status}');
+    }
+
+    const data = await response.json();
+    
+    const todos = data.records.map((record) => ({
+      title: record.fields.title,
+      id: record.id,
+    }));
+    
+    console.log(todos);
+
+    setTodoList(todos);
+    setIsLoading(false);
+  // eslint-disable-next-line no-unused-vars
+  } catch (error) {
+    console.error('Fetch error: ${error.message}');
+    setIsLoading(false);
+  }
+};
+  
+  useEffect(() => {
+    fetchData(); 
   }, []);
 
   useEffect(() => {
