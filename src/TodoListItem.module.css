@@ -8,27 +8,6 @@
   align-items: center;
 }
 
-input[type="text"] {
-  width: 100%;
-  padding: 8px;
-  font-size: 18px;
-  border: 2px solid #004080;
-  border-radius: 4px;
-  outline: none;
-  transition: border 0.3s;
-}
-
-button {
-  background-color: #008013;
-  color: white;
-  border: none;
-  padding: 20px 30px;
-  font-size: 18px;
-  font-weight: bold;
-  cursor: pointer;
-  border-radius: 15px;
-}
-
 .removeButton {
   background-color: #050505;
   color: rgb(244, 237, 237);
