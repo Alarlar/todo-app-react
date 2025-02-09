@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import TodoList from './TodoList';
 import AddTodoForm from './AddTodoForm';
+import "./App.css";
 
 
 const App = () => {
@@ -36,7 +37,7 @@ const App = () => {
 
     setTodoList(todos);
     setIsLoading(false);
-  // eslint-disable-next-line no-unused-vars
+
   } catch (error) {
     console.error('Fetch error: ${error.message}');
     setIsLoading(false);
