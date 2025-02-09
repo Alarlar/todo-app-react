@@ -3,7 +3,7 @@ A simple todo app built with React for task management.
 
 ## Technologies
   - React
-  - JavaScript (or TypeScript if applicable)
+  - JavaScript 
   - CSS
 
 ## Installation
@@ -25,7 +25,7 @@ npm start
 3. Delete a Task:
 
     - Click the 'Delete' button next to any task to remove it from the list.
-4. Filter Tasks (if applicable):
+4. Filter Tasks:
 
     - You can filter tasks to view only completed tasks, active tasks, or all tasks.
   
