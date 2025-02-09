@@ -30,5 +30,4 @@ npm start
     - You can filter tasks to view only completed tasks, active tasks, or all tasks.
   
 
-
-
+<img width="614" alt="Screenshot" src="https://github.com/user-attachments/assets/6fd4e4da-1b94-4c45-8805-598d9769c712" />
