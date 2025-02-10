@@ -3,9 +3,9 @@
 import './App.css';
 import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import TodoList from './TodoList';
-import AddTodoForm from './AddTodoForm';
-import "./App.css";
+
+import TodoList from "./components/TodoList";
+import AddTodoForm from "./components/AddTodoForm";
 
 
 const App = () => {
@@ -23,7 +23,7 @@ const App = () => {
     });
 
     if (!response.ok) {
-      throw new Error('Error: ${response.status}');
+      throw new Error(`Error: ${response.status}`);
     }
 
     const data = await response.json();

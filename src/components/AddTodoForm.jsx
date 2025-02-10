@@ -2,9 +2,10 @@
 /* eslint-disable no-unused-vars */
 import styles from './AddTodoForm.module.css';
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 
 // eslint-disable-next-line no-unused-vars
-import InputWithLabel from './InputWithlabel';
+import InputWithLabel from "../components/InputWithLabel";
 
 // eslint-disable-next-line react/prop-types
 
@@ -35,6 +36,10 @@ const AddTodoForm = ({ onAddTodo }) => {
       <button type="submit">Add Todo</button>
     </form>
     );
+};
+
+AddTodoForm.propTypes = {
+    onAddTodo: PropTypes.func.isRequired,
 };
 
 export default AddTodoForm;

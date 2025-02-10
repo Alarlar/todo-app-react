@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useRef } from 'react';
+import PropTypes from "prop-types";
 
 const InputWithLabel = ({ value, onChange, id, type = "text", children }) => {
     const inputRef = useRef(null);
@@ -23,4 +24,10 @@ const InputWithLabel = ({ value, onChange, id, type = "text", children }) => {
     );
 };
 
+InputWithLabel.propTypes = {
+    id: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
+    onChange: PropTypes.func.isRequired,
+    children: PropTypes.node.isRequired,
+};
 export default InputWithLabel;
