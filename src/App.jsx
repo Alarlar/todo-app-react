@@ -15,7 +15,7 @@ const App = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(`https://api.airtable.com/v0/${import.meta.env.VITE_AIRTABLE_BASE_ID}/${import.meta.env.VITE_TABLE_NAME}`, {
+      const response = await fetch(`https://api.airtable.com/v0/${import.meta.env.VITE_AIRTABLE_BASE_ID}/${import.meta.env.VITE_TABLE_NAME}?view=viwsK8prcfdGeQ2fO`, {
       method: 'GET',
       headers: {
         Authorization:`Bearer ${import.meta.env.VITE_AIRTABLE_API_TOKEN}`, 
@@ -27,7 +27,7 @@ const App = () => {
     }
 
     const data = await response.json();
-    
+
     const todos = data.records.map((record) => ({
       title: record.fields.title,
       id: record.id,
