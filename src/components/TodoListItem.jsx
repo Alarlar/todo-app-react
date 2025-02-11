@@ -2,6 +2,7 @@
 
 import React from 'react';
 import style from "./TodoListItem.module.css"; // Тут импорт css модуля, грубо говоря стиль в отдельном файле будет отражаться у этого файла
+import PropTypes from "prop-types";
 
 const TodoListItem = ({ todo, onRemoveTodo }) => {
     return (
@@ -12,4 +13,9 @@ const TodoListItem = ({ todo, onRemoveTodo }) => {
     );
   };
   
+  TodoListItem.propTypes = {
+    todo: PropTypes.object.isRequired,
+    onRemoveTodo: PropTypes.func.isRequired,
+  };
+
   export default TodoListItem;
