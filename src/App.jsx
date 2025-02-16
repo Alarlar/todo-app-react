@@ -15,7 +15,7 @@ const App = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(`https://api.airtable.com/v0/${import.meta.env.VITE_AIRTABLE_BASE_ID}/${import.meta.env.VITE_TABLE_NAME}?view=viwsK8prcfdGeQ2fO`, {
+      const response = await fetch(`https://api.airtable.com/v0/${import.meta.env.VITE_AIRTABLE_BASE_ID}/${import.meta.env.VITE_TABLE_NAME}?view=Grid%20view`, {
       method: 'GET',
       headers: {
         Authorization:`Bearer ${import.meta.env.VITE_AIRTABLE_API_TOKEN}`, 
@@ -32,6 +32,7 @@ const App = () => {
       title: record.fields.title,
       id: record.id,
     }));
+
     
     console.log(todos);
 
