@@ -19,16 +19,11 @@ const TodoList = ({ todoList, onRemoveTodo }) => {
   );
 };
 
-// TodoList.propTypes = {
-//   todoList: PropTypes.object.isRequired,
-//   onRemoveTodo: PropTypes.func.isRequired,
-// };
-
 TodoList.propTypes = {
   todoList: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-      title: PropTypes.string.isRequired,
+      title: PropTypes.string,
     })
   ).isRequired,
   onRemoveTodo: PropTypes.func.isRequired,
