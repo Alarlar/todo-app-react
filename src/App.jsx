@@ -29,7 +29,7 @@ const App = () => {
     const data = await response.json();
 
     const todos = data.records.map((record) => ({
-      title: record.fields.Title,
+      title: record.fields.title,
       id: record.id,
     }));
 
