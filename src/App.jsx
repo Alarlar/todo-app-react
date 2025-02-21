@@ -34,8 +34,8 @@ const App = () => {
     }));
 
     const sortedTodos = todos.sort((a, b) => {
-      const titleA = (a.Title || "").toLowerCase();
-      const titleB = (b.Title || "").toLowerCase();
+      const titleA = (a.title || "").toLowerCase();
+      const titleB = (b.title || "").toLowerCase();
       return titleA.localeCompare(titleB);
 });
 
