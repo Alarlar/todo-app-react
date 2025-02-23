@@ -15,7 +15,7 @@ const App = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(`https://api.airtable.com/v0/${import.meta.env.VITE_AIRTABLE_BASE_ID}/${import.meta.env.VITE_TABLE_NAME}`, {
+      const response = await fetch(`https://api.airtable.com/v0/${import.meta.env.VITE_AIRTABLE_BASE_ID}/${import.meta.env.VITE_TABLE_NAME}?view=Grid%20view`, {
       method: 'GET',
       headers: {
         Authorization:`Bearer ${import.meta.env.VITE_AIRTABLE_API_TOKEN}`, 
@@ -23,23 +23,29 @@ const App = () => {
     });
 
     if (!response.ok) {
-      throw new Error(`Error: ${response.status}`);
+      throw new Error(`Error: ${response.status} - ${response.statusText}`);
     }
 
     const data = await response.json();
-    
+
     const todos = data.records.map((record) => ({
       title: record.fields.title,
       id: record.id,
     }));
-    
-    console.log(todos);
 
-    setTodoList(todos);
+    const sortedTodos = todos.sort((a, b) => {
+      const titleA = (a.title || "").toLowerCase();
+      const titleB = (b.title || "").toLowerCase();
+      return titleA.localeCompare(titleB);
+});
+
+    console.log(sortedTodos);
+
+    setTodoList(sortedTodos);
     setIsLoading(false);
 
   } catch (error) {
-    console.error('Fetch error: ${error.message}');
+    console.error(`Fetch error: ${error.message}`);
     setIsLoading(false);
   }
 };
