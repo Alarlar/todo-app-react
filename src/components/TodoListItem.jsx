@@ -5,17 +5,26 @@ import style from "./TodoListItem.module.css"; // Тут импорт css мод
 import PropTypes from "prop-types";
 
 const TodoListItem = ({ todo, onRemoveTodo }) => {
-    return (
-      <li className={style.ListItem}> {/* класс из модуля */}
-        {todo.title}
-        <button className={style.removeButton} type="button" onClick={() => onRemoveTodo(todo.id)}>Remove</button>
-      </li>
-    );
-  };
+  return (
+    <li className={style.ListItem}> { }
+      {todo.title}
+      <button 
+        className={style.removeButton} 
+        type="button" 
+        onClick={() => onRemoveTodo(todo.id)}
+      >
+        Remove
+      </button>
+    </li>
+  );
+};
   
   TodoListItem.propTypes = {
-    todo: PropTypes.object.isRequired,
+    todo: PropTypes.shape({
+        id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+        title: PropTypes.string.isRequired,
+    }).isRequired,
     onRemoveTodo: PropTypes.func.isRequired,
-  };
+};
 
   export default TodoListItem;

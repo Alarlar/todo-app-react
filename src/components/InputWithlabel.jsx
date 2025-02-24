@@ -2,12 +2,12 @@
 import React, { useEffect, useRef } from 'react';
 import PropTypes from "prop-types";
 
-const InputWithLabel = ({ value, onChange, id, type = "text", children }) => {
+const InputWithLabel = ({ todoTitle, handleTitleChange, id, type = "text", children }) => {
     const inputRef = useRef(null);
 
     useEffect(() => {
         inputRef.current.focus();
-      });
+      }, []);
 
     return (
         <>
@@ -16,8 +16,8 @@ const InputWithLabel = ({ value, onChange, id, type = "text", children }) => {
         name={id}
         type={type}
         id={id}
-        value={value}
-        onChange={onChange}
+        value={todoTitle}
+        onChange={handleTitleChange}
         ref={inputRef}
             />
         </>
@@ -26,8 +26,8 @@ const InputWithLabel = ({ value, onChange, id, type = "text", children }) => {
 
 InputWithLabel.propTypes = {
     id: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired,
+    todoTitle: PropTypes.string.isRequired,
+    handleTitleChange: PropTypes.func.isRequired,
     children: PropTypes.node.isRequired,
     type: PropTypes.string,
 };
