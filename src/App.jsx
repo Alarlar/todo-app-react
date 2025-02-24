@@ -2,11 +2,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import './App.css';
 import { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
 import TodoList from "./components/TodoList";
 import AddTodoForm from "./components/AddTodoForm";
 
+const tableName = import.meta.env.VITE_TABLE_NAME;
 
 const App = () => {
   
@@ -15,12 +16,13 @@ const App = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(`https://api.airtable.com/v0/${import.meta.env.VITE_AIRTABLE_BASE_ID}/${import.meta.env.VITE_TABLE_NAME}`, {
+      const response = await fetch(`https://api.airtable.com/v0/${import.meta.env.VITE_AIRTABLE_BASE_ID}/${tableName}`, {
       method: 'GET',
       headers: {
         Authorization:`Bearer ${import.meta.env.VITE_AIRTABLE_API_TOKEN}`, 
       },
-    });
+    }
+  );
 
     if (!response.ok) {
       throw new Error(`Error: ${response.status}`);
@@ -31,15 +33,14 @@ const App = () => {
     const todos = data.records.map((record) => ({
       title: record.fields.title,
       id: record.id,
-    }));
+    }))
+      .sort((a, b) => a.title.localeCompare(b.title)); // Сортировка по алфавиту
     
-    console.log(todos);
-
     setTodoList(todos);
     setIsLoading(false);
 
   } catch (error) {
-    console.error('Fetch error: ${error.message}');
+    console.error(`Fetch error: ${error.message}`);
     setIsLoading(false);
   }
 };
@@ -54,43 +55,92 @@ const App = () => {
     }
   }, [todoList]);
 
-  const addTodo = (newTodo) => {
-    setTodoList((prevTodoList) => [...prevTodoList, newTodo]);
+  const addTodo = async (newTodo) => {
+    try { 
+      const response = await fetch(
+        `https://api.airtable.com/v0/${import.meta.env.VITE_AIRTABLE_BASE_ID}/${tableName}`,
+        {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${import.meta.env.VITE_AIRTABLE_API_TOKEN}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            fields: {
+              title: newTodo.title,
+            },
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status}`);
+      }
+
+      const addedRecord = await response.json();
+      setTodoList((prevTodoList) => 
+        [...prevTodoList, { title: addedRecord.fields.title, id: addedRecord.id }].sort((a, b) =>
+          a.title.localeCompare(b.title)
+        )
+      );
+    } catch (error) {
+      console.error(`Add Todo error: ${error.message}`);
+    }
   };
 
-  const removeTodo = (id) => {
-    setTodoList(todoList.filter((todo) => todo.id !== id));
-  };
+  const removeTodo = async (id) => {
+    try {
+      const response = await fetch(
+  `https://api.airtable.com/v0/${import.meta.env.VITE_AIRTABLE_BASE_ID}/${tableName}/${id}`,
+  {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${import.meta.env.VITE_AIRTABLE_API_TOKEN}`,
+    },
+  }
+);
+
+if (!response.ok) {
+  throw new Error(`Error: ${response.status}`);
+}
+
+setTodoList((prevTodoList) => prevTodoList.filter((todo) => todo.id !== id));
+} catch (error) {
+  console.error(`Remove Todo error: ${error.message}`);
+  }
+};
 
   return (
     <BrowserRouter>
+      <nav>
+        <ul>
+          <li><Link to="/">Home</Link></li>
+          <li><Link to="/new">New Todos</Link></li>
+        </ul>
+      </nav>
+
       <Routes>
         <Route
-          path='/'
+          path="/"
           element={
             <>
-              <h1>My Todo List</h1>
+              <h1>{tableName} Todo List</h1>
               <AddTodoForm onAddTodo={addTodo} />
-              {isLoading ? (
-                <p>Loading...</p> 
-              ) : (
-                <TodoList todoList={todoList} onRemoveTodo={removeTodo} />
-              )}
+              {isLoading ? <p>Loading...</p> : <TodoList todoList={todoList} onRemoveTodo={removeTodo} />}
             </>
           }
         />
 
-        {/* New Route будет тут*/}
-        
         <Route
-          path='/new'
+          path="/new"
           element={
             <>
               <h1>New Todo List</h1>
+              <p>This page is under development.</p>
             </>
           }
         />
-      </Routes> 
+      </Routes>
     </BrowserRouter>
   );
 };
