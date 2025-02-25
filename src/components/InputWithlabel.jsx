@@ -7,7 +7,7 @@ const InputWithLabel = ({ value, onChange, id, type = "text", children }) => {
 
     useEffect(() => {
         inputRef.current.focus();
-      });
+      }, []);
 
     return (
         <>
@@ -26,9 +26,10 @@ const InputWithLabel = ({ value, onChange, id, type = "text", children }) => {
 
 InputWithLabel.propTypes = {
     id: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired,
+    value: PropTypes.string.isRequired, 
+    onChange: PropTypes.func.isRequired, 
     children: PropTypes.node.isRequired,
     type: PropTypes.string,
 };
+
 export default InputWithLabel;

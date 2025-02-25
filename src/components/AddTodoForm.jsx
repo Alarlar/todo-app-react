@@ -18,14 +18,17 @@ const AddTodoForm = ({ onAddTodo }) => {
         setTodoTitle(event.target.value);
     };
 
-    const handleSubmit = (event) => {
+    const handleAddTodo = (event) => {
         event.preventDefault();
+
+        if (todoTitle.trim() === '') return;
+
         onAddTodo({ title: todoTitle, id: Date.now() });
         setTodoTitle('');
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleAddTodo} className={styles.form}>
             <InputWithLabel 
             id="todo-title" 
             value={todoTitle} 
@@ -33,7 +36,7 @@ const AddTodoForm = ({ onAddTodo }) => {
             >
         Title
       </InputWithLabel>
-      <button type="submit">Add Todo</button>
+      <button type="submit" className={styles.button}>Add Todo</button>
     </form>
     );
 };
