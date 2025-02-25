@@ -28,6 +28,35 @@ body {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
+nav {
+  background-color: #c45757;
+  padding: 10px;
+  width: 100%;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+nav ul {
+  list-style: none;
+  padding: 10;
+  display: flex;
+  justify-content: flex-start;
+}
+
+nav li {
+  margin-right: 90px;
+}
+
+nav a {
+  color: rgb(43, 46, 87);
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+nav a:hover {
+  color: #dfe8e1;
+}
+
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);

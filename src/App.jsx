@@ -124,7 +124,7 @@ setTodoList((prevTodoList) => prevTodoList.filter((todo) => todo.id !== id));
           path="/"
           element={
             <>
-              <h1>{tableName} Todo List</h1>
+              <h1>Todo List</h1>
               <AddTodoForm onAddTodo={addTodo} />
               {isLoading ? <p>Loading...</p> : <TodoList todoList={todoList} onRemoveTodo={removeTodo} />}
             </>
